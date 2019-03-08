@@ -1,0 +1,27 @@
+body { 
+    background: 
+        url(crossed_cannons.png) no-repeat, bottom center,
+        url(old_map.png) repeat;
+}
+h1 {
+    text-align: center;
+}
+#start_button {
+    background-color: green;
+    color: white;  
+}
+h2 {
+    text-align: center;
+}
+#questions {
+    text-align: center;
+}
+#choices {
+    text-align: center;
+}
+.correct {
+    color: darkgreen;
+}
+.incorrect {
+    color: red;
+}
