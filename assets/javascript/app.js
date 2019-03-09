@@ -1,5 +1,6 @@
+//Ensure that js doesn't get run until the HTML document is finished loading
 $(document).ready(function () {
-
+    //Trivia questions function
     $.fn.trivia = function () {
         var triv = this;
         triv.userPick = null;
@@ -7,9 +8,10 @@ $(document).ready(function () {
             correct: 0,
             incorrect: 0
         };
-        //triv.images = null;
+        //Initial timer values setting
         triv.count = 30;
         triv.current = 0;
+        //Questions, answer options, and correct response array
         triv.questions = [{
 
             question: "Where is the breech on an artillery piece?",
@@ -41,12 +43,12 @@ $(document).ready(function () {
             choices: ["White and Red", "Maroon and White", "Scarlet and Yellow", "Red and Gold"],
             correct: 2
         }];
+        //Ask question function
         triv.ask = function () {
             if (triv.questions[triv.current]) {
                 $('#timer').html("Time remaining: " + "00:" + triv.count + " secs");
                 $('#questions').html(triv.questions[triv.current].question);
                 var choicesArr = triv.questions[triv.current].choices;
-                var buttonsArr = [];
 
                 for (var i = 0; i < choicesArr.length; i++) {
                     var button = $('<button>');
@@ -61,9 +63,11 @@ $(document).ready(function () {
                         triv.questions.length - (triv.answers.correct + triv.answers.incorrect)),
                     class: 'result'
                 }));
+                //Start button becomes Restart button
                 $('#start_button').text('Restart').appendTo('body').show();
             }
         };
+        //Timer countdown function
         triv.timer = function () {
             triv.count--;
             if (triv.count <= 0) {
@@ -75,6 +79,7 @@ $(document).ready(function () {
                 $("#timer").html("Time remaining: " + "00:" + triv.count + " secs");
             }
         };
+        //Next question function that resets timer function
         triv.nextQ = function () {
             triv.current++;
             clearInterval(window.triviaCounter);
@@ -85,13 +90,15 @@ $(document).ready(function () {
                 triv.ask();
             }, 1000)
         };
+        //Clean up between questions by resetting timer, question, and answer html data
         triv.cleanUp = function () {
-            $('div[id]').each(function (item) {
+            $('h2[id]').each(function () {
                 $(this).html('');
             });
             $('.correct').html('Correct answers: ' + triv.answers.correct);
             $('.incorrect').html('Incorrect answers: ' + triv.answers.incorrect);
         };
+        //Answer counter
         triv.answer = function (correct) {
             var string = correct ? 'correct' : 'incorrect';
             triv.answers[string]++;
@@ -99,6 +106,7 @@ $(document).ready(function () {
         };
         return triv;
     };
+    //Start button
     var Trivia;
 
     $("#start_button").click(function () {
@@ -108,18 +116,18 @@ $(document).ready(function () {
         Trivia = new $(window).trivia();
         Trivia.ask();
     });
-
-    $('#choices').on('click', 'button', function (e) {
+    //User answer selection response routine
+    $('#choices').on('click', 'button', function () {
         var userPick = $(this).data("id"),
             triv = Trivia || $(window).trivia(),
             index = triv.questions[triv.current].correct,
             correct = triv.questions[triv.current].choices[index];
 
         if (userPick !== index) {
-            $('#choices').text("Wrong Answer! The correct answer was: " + correct);
+            $('#choices').text("Incorrect! The correct answer was: " + correct);
             triv.answer(false);
         } else {
-            $('#choices').text("Correct!!! The correct answer was: " + correct);
+            $('#choices').text("Your answer is correct! It was: " + correct);
             triv.answer(true);
         }
         triv.nextQ();
