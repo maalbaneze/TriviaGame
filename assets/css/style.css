@@ -5,19 +5,32 @@ body {
 }
 h1 {
     text-align: center;
+    font-weight: bold;
+    padding: 20px;
 }
 #start_button {
     background-color: green;
-    color: white;  
+    color: white; 
+    font-size: 24px; 
+    left: 20%;
 }
 #timer {
     text-align: center;
+    color: red;
+    padding: 20px;
 }
 #questions {
     text-align: center;
 }
 #choices {
     text-align: center;
+    font-size: 22px;
+    padding: 10px;
+}
+#Army-Song {
+    color: blue;
+    position: absolute;
+    right: 25%;
 }
 .correct {
     color: darkgreen;
@@ -26,4 +39,9 @@ h1 {
 .incorrect {
     color: red;
     font-size: 24px;
+}
+.result {
+    color: purple;
+    font-size: 20px; 
+    left: 20%;
 }

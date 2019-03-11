@@ -65,6 +65,7 @@ $(document).ready(function () {
                 }));
                 //Start button becomes Restart button
                 $('#start_button').text('Restart').appendTo('body').show();
+                pauseAudio();
             }
         };
         //Timer countdown function
@@ -108,8 +109,18 @@ $(document).ready(function () {
     };
     //Start button
     var Trivia;
+    var audio = document.getElementById("Army_Song");
+    function playAudio() {
+        audio.play();
+    }
+    function pauseAudio() {
+        audio.pause();
+    }
 
     $("#start_button").click(function () {
+        /* document.getElementById("Army_Song").addEventListener("play", Trivia);
+        console.log(); */
+        playAudio();
         $(this).hide();
         $('.result').remove();
         $('#choices').html('');
